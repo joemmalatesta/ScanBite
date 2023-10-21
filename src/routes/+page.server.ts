@@ -35,8 +35,7 @@ export const actions: Actions = {
 		// This will be used by every Clarifai endpoint call
 		const metadata = new grpc.Metadata();
 		metadata.set('authorization', 'Key ' + PAT);
-		const response = await new Promise((resolve, reject) => {
-			stub.PostModelOutputs(
+		stub.PostModelOutputs(
 			{
 				user_app_id: {
 					user_id: USER_ID,
@@ -68,8 +67,8 @@ export const actions: Actions = {
 					foodArray.push([concept.name, concept.value]);
 				}
 
-				console.log("food array inside\n" + foodArray);
-			} )}
+				console.log("food array\n" + foodArray);
+			}
 		);
 		console.log("food array2\n" + foodArray);
 		return {
