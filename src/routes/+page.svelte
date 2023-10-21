@@ -1,9 +1,11 @@
 <script lang="ts">
-	import type { ActionData } from "./$types";
+	import type { ActionData } from './$types';
 
-	let formOutput: string;
+	let formOutput: any;
 	export let form: ActionData;
-	$: console.log(form)
+	$: if (form?.foodArray) {
+		formOutput = form.foodArray;
+	}
 </script>
 
 <h2 class="text-5xl">Upload Image</h2>
@@ -13,6 +15,10 @@
 	<button type="submit">Upload</button>
 </form>
 
-<!-- <div>
-	{form?.output}
-</div> -->
+{#if form?.foodArray}
+	<div class="flex flex-col">
+		{#each formOutput as food}
+			<p>{food[0]} - {food[1]}</p>
+		{/each}
+	</div>
+{/if}
