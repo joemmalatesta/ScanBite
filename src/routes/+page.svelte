@@ -33,7 +33,7 @@
 	let loading = false;
 </script>
 
-<div class="flex flex-col justify-center items-center mt-3">
+<div class="flex justify-center items-center mt-3">
 	<SectionHeader title={'ScanBite'} />
 </div>
 

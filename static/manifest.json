@@ -1,0 +1,16 @@
+{
+    "name": "ScanBite",
+    "short_name": "ScanBite",
+    "scope": "/",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "type": "image/svg+xml",
+            "sizes": "any"
+        }
+    ]
+}
