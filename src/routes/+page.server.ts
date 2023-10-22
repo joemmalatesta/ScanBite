@@ -12,7 +12,6 @@ const MODEL_VERSION_ID = 'dfebc169854e429086aceb8368662641';
 
 export const actions: Actions = {
 	default: async (event) => {
-		console.log('hittin that jawn');
 		const formData = Object.fromEntries(await event.request.formData());
 
 		if (!(formData.imageFile as File).name || (formData.imageFile as File).name === 'undefined') {
@@ -25,12 +24,17 @@ export const actions: Actions = {
 		const { imageFile } = formData as { imageFile: File };
 
 		// Add file to folder... not necessary but good if we wanna store in DB
-		// writeFileSync(`static/${imageFile.name}`, Buffer.from(await imageFile.arrayBuffer()));
-		const foodArray = await postModelOutputs(await imageFile.arrayBuffer())
-		console.log('foodArray' + foodArray)
+		writeFileSync(`static/${imageFile.name}`, Buffer.from(await imageFile.arrayBuffer()));
+
+		// Get the output from Clarifai about what foods are pictured.
+		let foodArray: any = await postModelOutputs(await imageFile.arrayBuffer())
+
+		// Remove items in food array that are below .7 confidence
+		let filteredArray = foodArray.filter(([_, confidence]: [any, any]) => confidence >= 0.7);
 
 		return {
-			foodArray
+			foodArray: filteredArray,
+			image: imageFile.name
 		}
 	}
 };
