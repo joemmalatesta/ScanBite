@@ -1,15 +1,19 @@
 <script lang="ts">
 	import Loading from '../components/Loading.svelte';
+	import RatingBar from '../components/RatingBar.svelte';
 	import SectionHeader from '../components/SectionHeader.svelte';
 	import type { ActionData } from './$types';
 
-	let foodArray: any, uploadedImage: any;
+	let ingredients: any, uploadedImage: any, ratings: any;
 	export let form: ActionData;
 	$: if (form?.foodArray) {
-		foodArray = form.foodArray;
+		ingredients = form.foodArray;
 	}
 	$: if (form?.image) {
 		uploadedImage = form.image;
+	}
+	$: if (form?.ratings) {
+		ratings = form.ratings;
 	}
 
 	// Get image of food after it is selected, but before it sent to the server and uploaded
@@ -31,6 +35,7 @@
 	};
 
 	let loading = false;
+	let showFoods = false;
 </script>
 
 <div class="flex justify-center items-center mt-3">
@@ -77,10 +82,31 @@
 	>
 </form>
 
-{#if form?.foodArray}
-	<div class="flex flex-col">
-		{#each foodArray as food}
-			<p>{food[0]} - {food[1]}</p>
+<!-- Overall, protein, fiber, vitamin -->
+{#if form?.ratings}
+	<!-- Large screens -->
+	<div class="flex justify-around">
+		{#each ratings as rating}
+		<!-- Put the ratings component here -->
+			<RatingBar ratingCategory={rating[0]} ratingNumber={rating[1]} />
 		{/each}
 	</div>
+
+	<!-- For phone screens, have them toggle the rating they see -->
 {/if}
+
+
+
+<!-- Option to see food breakdown MAYBE ADD THIS -->
+
+<!-- <button class="p-2 bg-emerald-400" on:click={() => {
+	showFoods = !showFoods
+}}>see food breakdown</button>
+
+{#if form?.foodArray && showFoods}
+	<div class="flex flex-col">
+		{#each ingredients as ingredient}
+			<p>{ingredient}</p>
+		{/each}
+	</div>
+{/if} -->
