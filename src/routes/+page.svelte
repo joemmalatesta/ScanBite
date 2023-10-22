@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Loading from '../components/Loading.svelte';
 	import type { ActionData } from './$types';
 
 	let foodArray: any, uploadedImage: any;
@@ -14,6 +15,7 @@
 	let foodImage: any, fileInput: any;
 	const onFileSelected = (e: any) => {
 		if (e && e.target && e.target.files) {
+			loading = false;
 			let image = e.target.files[0];
 			let reader = new FileReader();
 			reader.readAsDataURL(image);
@@ -34,14 +36,16 @@
 
 <form method="POST" enctype="multipart/form-data">
 	<!-- different image states depending on selected, loading, or uploaded -->
-	{#if uploadedImage}
-		<img src={uploadedImage} alt="Uploaded food" />
-	{:else if foodImage && loading}
-		<!-- Add a scanning bar thing going over the image -->
-		<img class="rotate-45" src={foodImage} alt="loading food" />
-	{:else if foodImage}
-		<img src={foodImage} alt="selected food" />
-	{/if}
+	<div class="">
+		{#if uploadedImage}
+			<img src={uploadedImage} alt="Uploaded food" />
+		{:else if foodImage && loading}
+			<!-- Add a scanning bar thing going over the image -->
+			<Loading src={foodImage} />
+		{:else if foodImage}
+			<img src={foodImage} alt="selected food" />
+		{/if}
+	</div>
 
 	<input
 		class={foodImage || uploadedImage ? 'hidden' : ''}
@@ -52,7 +56,7 @@
 		bind:this={fileInput}
 	/>
 	<button
-    class="{uploadedImage ? "hidden" : ""}"
+		class={uploadedImage ? 'hidden' : ''}
 		type="submit"
 		on:click={() => {
 			loading = true;

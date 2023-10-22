@@ -10,6 +10,8 @@ const APP_ID = 'photofood';
 const MODEL_ID = 'food-item-v1-recognition';
 const MODEL_VERSION_ID = 'dfebc169854e429086aceb8368662641';
 
+let ingredients: any = []
+
 export const actions: Actions = {
 	default: async (event) => {
 		const formData = Object.fromEntries(await event.request.formData());
@@ -31,7 +33,12 @@ export const actions: Actions = {
 
 		// Remove items in food array that are below .7 confidence
 		let filteredArray = foodArray.filter(([_, confidence]: [any, any]) => confidence >= 0.7);
+		//Set the first element of each [ingredient, confidence] to ingredients for GPT use.
+		filteredArray.forEach((element: any) => {
+			ingredients.push(element[0])
+		});
 
+		console.log(ingredients)
 		return {
 			foodArray: filteredArray,
 			image: imageFile.name
