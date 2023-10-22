@@ -80,6 +80,16 @@
 			loading = true;
 		}}>Scan </button
 	>
+	<button
+		type="button"
+		class="{uploadedImage
+			? ''
+			: 'hidden'} rounded-md p-2 w-60 mt-2 bg-emerald-400 ring-2 ring-emerald-500 hover:bg-emerald-500 transition-colors"
+		on:click={() => {
+			loading = true;
+		}}>Scan </button
+	>
+	
 </form>
 
 <!-- Overall, protein, fiber, vitamin -->

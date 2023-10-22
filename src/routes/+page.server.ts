@@ -16,7 +16,6 @@ const APP_ID = 'photofood';
 const MODEL_ID = 'food-item-v1-recognition';
 const MODEL_VERSION_ID = 'dfebc169854e429086aceb8368662641';
 
-let ingredients: any = [];
 
 export const actions: Actions = {
 	default: async (event) => {
@@ -40,9 +39,13 @@ export const actions: Actions = {
 		// Remove items in food array that are below .7 confidence
 		let filteredArray = foodArray.filter(([_, confidence]: [any, any]) => confidence >= 0.7);
 		//Set the first element of each [ingredient, confidence] to ingredients for GPT use.
+		let ingredients: any = [];
 		filteredArray.forEach((element: any) => {
 			ingredients.push(element[0]);
 		});
+
+
+		console.log(ingredients)
 
 		let prompt = `You're Nutrition GPT, an expert on health, food, diet, and all things nutrition. Your job today is to give four simple ratings to a meal that one of your friends said they ate. The meal included these ingredients. ${ingredients}
 	  You can ignore any ingredient that sounds like a full meal like "tacos" or "burritos".
