@@ -43,7 +43,9 @@
 </div>
 
 <form method="POST" enctype="multipart/form-data" class="flex justify-center flex-col items-center">
-	<div class="flex justify-center items-center relative h-96 md:w-96 w-72 cursor-pointer">
+	<div
+		class="flex justify-center items-center relative h-96 md:w-96 w-72 cursor-pointer overflow-hidden"
+	>
 		<!-- different image states depending on selected, loading, or uploaded -->
 		{#if uploadedImage}
 			<img src={uploadedImage} alt="Uploaded food" class=" object-cover" />
@@ -78,35 +80,35 @@
 		type="submit"
 		on:click={() => {
 			loading = true;
-		}}>Scan </button
-	>
+		}}
+		>Scan
+	</button>
 	<button
 		type="button"
 		class="{uploadedImage
 			? ''
 			: 'hidden'} rounded-md p-2 w-60 mt-2 bg-emerald-400 ring-2 ring-emerald-500 hover:bg-emerald-500 transition-colors"
 		on:click={() => {
-			foodImage = "";
-			window.location.reload()
+			foodImage = '';
+			window.location.reload();
 		}}>Scan Another</button
 	>
-	
 </form>
 
 <!-- Overall, protein, fiber, vitamin -->
 {#if form?.ratings}
 	<!-- Large screens -->
-	<div class="flex justify-around">
+	<div class="flex flex-col lg:flex-row items-center justify-around">
 		{#each ratings as rating}
-		<!-- Put the ratings component here -->
-			<RatingBar ratingCategory={rating[0]} ratingNumber={rating[1]} />
+			<!-- Put the ratings component here -->
+			<div>
+				<RatingBar ratingCategory={rating[0]} ratingNumber={rating[1]} />
+			</div>
 		{/each}
 	</div>
 
 	<!-- For phone screens, have them toggle the rating they see -->
 {/if}
-
-
 
 <!-- Option to see food breakdown MAYBE ADD THIS -->
 
