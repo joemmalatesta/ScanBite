@@ -32,6 +32,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"clarifai-nodejs-grpc": "^9.9.2"
+		"clarifai-nodejs-grpc": "^9.9.2",
+		"openai": "^4.12.4"
 	}
 }

@@ -1,6 +1,12 @@
 import type { Actions } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
 import { writeFileSync } from 'fs';
+import { OpenAI } from 'openai';
+import { OPENAI_KEY } from '$env/static/private';
+
+const openAI = new OpenAI({
+	apiKey: OPENAI_KEY, 
+  });
 
 import { ClarifaiStub, grpc } from 'clarifai-nodejs-grpc';
 // Variables for using Clarifai
@@ -39,6 +45,12 @@ export const actions: Actions = {
 		});
 
 		console.log(ingredients)
+		const res = await openAI.chat.completions.create({
+			model: 'gpt-4',
+			messages: [{ role: 'user', content: 'Say this is a test' }],
+		});
+		console.log(res.choices)
+		// After we get ingredients, go into ChatGPT and give it a generalize health rating
 		return {
 			foodArray: filteredArray,
 			image: imageFile.name
