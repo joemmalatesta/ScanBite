@@ -3,9 +3,9 @@
 </script>
 
 <div class="relative w-fit h-fit">
-	<img {src} alt="loading food" />
+	<img class=" object-cover" {src} alt="loading food" />
 	<div
-		class="scanner absolute w-full h-8 bg-gradient-to-b from-green-200/60 via-green-400 to-green-200/60"
+		class="scanner absolute w-full h-8 bg-gradient-to-b from-emerald-200/60 via-emerald-400 to-emerald-200/60"
 	/>
 </div>
 
